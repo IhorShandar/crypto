@@ -20,7 +20,6 @@ public class CryptoController {
     private String s1 = "BTC";
     private String s2 = "USD";
 
-
     @Autowired
     CryptoService cryptoService;
 

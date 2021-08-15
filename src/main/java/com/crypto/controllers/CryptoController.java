@@ -23,11 +23,28 @@ public class CryptoController {
     @Autowired
     CryptoService cryptoService;
 
+  /* Я до кінця не зрозумів як повинен працювати таймер. Чи він повинен кожні 10 секунд зберігати в
+     базу даних останні ціни по трьох заданих парах чи тільки по одній вказаній парі (тій, що я вказую
+     в endpoint lastPrice). Я реалізував так, що ми цим endpoint переключаємо валюту, яка оновлюється
+     кожні 10 секунд(за замовчуванням оновлюється BTC). Щоб оновлювати ціни по трьох заданих парах можна
+     розкоментувати метод every10SecondsAll і закоментувати метод every10Seconds*/
     @Scheduled(cron = "0/10 * * * * ?")
-    public void test(){
+    public void every10Seconds(){
         Crypto crypto = cryptoService.parseCurrency(s1, s2);
-        cryptoService.save(crypto);
+        if (!(crypto == null)){
+            cryptoService.save(crypto);
+        }
     }
+
+//    @Scheduled(cron = "0/10 * * * * ?")
+//    public void every10SecondsAll(){
+//        Crypto crypto = cryptoService.parseCurrency("BTC", "USD");
+//        cryptoService.save(crypto);
+//        Crypto crypto1 = cryptoService.parseCurrency("ETH", "USD");
+//        cryptoService.save(crypto1);
+//        Crypto crypto2 = cryptoService.parseCurrency("XRP", "USD");
+//        cryptoService.save(crypto2);
+//    }
 
     @PostMapping(value = "/crypto/{s1}/{s2}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> lastPrice(@PathVariable String s1, @PathVariable String s2){
@@ -84,19 +101,13 @@ public class CryptoController {
 
     @GetMapping("/cryptocurrencies/csv")
     public void createCSV(){
-        Crypto maxBTC = cryptoService.findMaxByCurrencyName("BTC");
-        Crypto minBTC = cryptoService.findMinByCurrencyName("BTC");
-        Crypto maxETH = cryptoService.findMaxByCurrencyName("ETH");
-        Crypto minETH = cryptoService.findMinByCurrencyName("ETH");
-        Crypto maxXRP = cryptoService.findMaxByCurrencyName("XRP");
-        Crypto minXRP = cryptoService.findMinByCurrencyName("XRP");
         List<Crypto> cryptos = new ArrayList<>();
-        cryptos.add(maxBTC);
-        cryptos.add(minBTC);
-        cryptos.add(maxETH);
-        cryptos.add(minETH);
-        cryptos.add(maxXRP);
-        cryptos.add(minXRP);
+        cryptos.add(cryptoService.findMaxByCurrencyName("BTC"));
+        cryptos.add(cryptoService.findMinByCurrencyName("BTC"));
+        cryptos.add(cryptoService.findMaxByCurrencyName("ETH"));
+        cryptos.add(cryptoService.findMinByCurrencyName("ETH"));
+        cryptos.add(cryptoService.findMaxByCurrencyName("XRP"));
+        cryptos.add(cryptoService.findMinByCurrencyName("XRP"));
         cryptoService.createCSV(cryptos);
     }
 }

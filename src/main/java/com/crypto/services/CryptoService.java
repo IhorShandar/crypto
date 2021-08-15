@@ -38,8 +38,7 @@ public class CryptoService {
     }
 
     public Crypto parseCurrency(String s1, String s2){
-
-        StringBuilder response = null;
+        StringBuilder response = new StringBuilder();
         try {
             String url_str = "https://cex.io/api/last_price/" + s1 + "/" + s2;
             URL url = new URL(url_str);
@@ -49,7 +48,6 @@ public class CryptoService {
             InputStream inputStream = request.getInputStream();
 
             int read;
-            response = new StringBuilder();
             while ((read = inputStream.read()) != -1) {
                 response.append((char) read);
             }
@@ -57,7 +55,7 @@ public class CryptoService {
             e.printStackTrace();
         }
 
-        Crypto crypto = null;
+        Crypto crypto = new Crypto();
         try {
             JSONArray jsonArray = new JSONArray("[" + response + "]");
             JSONObject dateFromNet = new JSONObject();
@@ -85,9 +83,9 @@ public class CryptoService {
 
     public void createCSV(List<Crypto> cryptos){
         String[] nameColumns = {"Currency name", "minPrice", "maxPrice"};
-        String[] BTC = {cryptos.get(0).getCurr1(), String.valueOf(cryptos.get(1).getLprice()), String.valueOf(cryptos.get(0).getLprice())};
-        String[] ETH = {cryptos.get(2).getCurr1(), String.valueOf(cryptos.get(3).getLprice()), String.valueOf(cryptos.get(2).getLprice())};
-        String[] XPR = {cryptos.get(4).getCurr1(), String.valueOf(cryptos.get(5).getLprice()), String.valueOf(cryptos.get(4).getLprice())};
+        String[] BTC = {cryptos.get(1).getCurr1(), String.valueOf(cryptos.get(1).getLprice()), String.valueOf(cryptos.get(0).getLprice())};
+        String[] ETH = {cryptos.get(3).getCurr1(), String.valueOf(cryptos.get(3).getLprice()), String.valueOf(cryptos.get(2).getLprice())};
+        String[] XPR = {cryptos.get(5).getCurr1(), String.valueOf(cryptos.get(5).getLprice()), String.valueOf(cryptos.get(4).getLprice())};
         List<String[]> list = new ArrayList<>();
         list.add(nameColumns);
         list.add(BTC);

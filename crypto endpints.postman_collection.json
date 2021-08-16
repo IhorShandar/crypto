@@ -1,0 +1,130 @@
+{
+	"info": {
+		"_postman_id": "c6c91466-5cd1-4a6f-9268-c5c01abf7cef",
+		"name": "crypto endpints",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost:8080/crypto/ETH/USD",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/crypto/ETH/USD",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"crypto",
+						"ETH",
+						"USD"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/cryptocurrencies/minprice?name=BTC",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/cryptocurrencies/minprice?name=BTC",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cryptocurrencies",
+						"minprice"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "BTC"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/cryptocurrencies/maxprice?name=ETH",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/cryptocurrencies/maxprice?name=ETH",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cryptocurrencies",
+						"maxprice"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "ETH"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/cryptocurrencies?name=ETH&page=6&size=10",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/cryptocurrencies?name=ETH&page=6&size=10",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cryptocurrencies"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "ETH"
+						},
+						{
+							"key": "page",
+							"value": "6"
+						},
+						{
+							"key": "size",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/cryptocurrencies/csv",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/cryptocurrencies/csv",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cryptocurrencies",
+						"csv"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

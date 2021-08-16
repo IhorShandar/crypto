@@ -17,4 +17,7 @@ public interface CryptoDao extends JpaRepository<Crypto, Integer> {
 
     List<Crypto> findAllByCurr1(String curr1, Pageable pageable);
 
+    @Query(value = "select * from crypto.crypto where id = (select MAX(id) from crypto where curr1 = :curr1 AND curr2 = :curr2) limit 1", nativeQuery = true)
+    Crypto findLastByCurr1(String curr1, String curr2);
+
 }

@@ -22,7 +22,7 @@ public class CryptoController {
     CryptoService cryptoService;
 
     @Scheduled(cron = "0/10 * * * * ?")
-    public void every10SecondsAll(){
+    public void saveEvery10Seconds(){
         Crypto crypto = cryptoService.parseCurrency("BTC", "USD");
         cryptoService.save(crypto);
         Crypto crypto1 = cryptoService.parseCurrency("ETH", "USD");
@@ -31,11 +31,10 @@ public class CryptoController {
         cryptoService.save(crypto2);
     }
 
-    @PostMapping(value = "/crypto/{s1}/{s2}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/crypto1/{s1}/{s2}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> lastPrice(@PathVariable String s1, @PathVariable String s2){
         if ((s1.equals("BTC") || s1.equals("ETH") || s1.equals("XRP")) && s2.equals("USD")){
-            Crypto crypto = cryptoService.parseCurrency(s1, s2);
-            cryptoService.save(crypto);
+            Crypto crypto = cryptoService.findLastByCurrencyName(s1, s2);
             return ResponseEntity.ok(crypto);
         } else {
             return ResponseEntity

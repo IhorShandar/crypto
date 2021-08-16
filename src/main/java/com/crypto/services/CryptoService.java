@@ -29,6 +29,10 @@ public class CryptoService {
         cryptoDao.save(crypto);
     }
 
+    public Crypto findLastByCurrencyName(String curr1, String curr2) {
+        return cryptoDao.findLastByCurr1(curr1, curr2);
+    }
+
     public Crypto findMinByCurrencyName(String name) {
        return cryptoDao.findMinByCurr1(name);
     }
